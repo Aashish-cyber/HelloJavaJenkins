@@ -1,20 +1,17 @@
 pipeline {
     agent any
-
     stages {
         stage('Build') {
             steps {
-                // Compile and build your Java application
-                sh 'javac Main.java'
+                withEnv(["PATH+JDK=${tool 'JDK11'}/bin"]) {
+                    sh 'javac Main.java'
+                }
             }
         }
-
         stage('Run') {
             steps {
-                // Run your Java application
                 sh 'java Main'
             }
         }
     }
 }
-
